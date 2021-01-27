@@ -1,4 +1,5 @@
 from sklearn import datasets #数据来源
+from sklearn.metrics import classification_report #分类报告
 from sklearn.model_selection import train_test_split #数据分割
 from sklearn import svm #模型选择
 from sklearn.neighbors import KNeighborsClassifier #模型选择
@@ -8,6 +9,8 @@ from sklearn import tree
 from sklearn.linear_model import SGDClassifier #
 from sklearn.ensemble import RandomForestClassifier
 import joblib #保存模型
+
+import matplotlib.pyplot as plt #matlab画图
 
 test_num = 45   #全局变量 测试样本数
 
@@ -41,7 +44,7 @@ def IrisTrain_mlp():
     iris_predict = mlp.predict(x_test)     #预测
     return iris_predict,x_test,y_test,mlp
 
-def IrisTrain_gnb():
+def IrisTrain_gnb():        #高斯贝叶斯
     iris_data = datasets.load_iris()    #加载
     x_train = iris_data.data   #特征集
     y_train = iris_data.target     #标签
@@ -61,7 +64,7 @@ def IrisTrain_Decisiontree():
     iris_predict = dt.predict(x_test)     #预测
     return iris_predict,x_test,y_test,dt
 
-def IrisTrain_sgd():
+def IrisTrain_sgd():        #随机梯度下降
     iris_data = datasets.load_iris()    #加载
     x_train = iris_data.data   #特征集
     y_train = iris_data.target     #标签
@@ -95,6 +98,7 @@ if __name__ == '__main__':
     # for i in range(len(iris_predict_s)):
     #     print("第%s次测试，预测值是：%s，真实值是：%s" % ((i + 1), lables[iris_Ytest_s[i]], lables[iris_predict_s[i]]))
     print("svm的准确率是：{:.2%}".format(s.score(iris_Xtest_s, iris_Ytest_s)))
+    print("svm的测试集准确率是：{:.2%}".format(Iris_score(iris_Ytest_s, iris_predict_s)))
 
     iris_predict_knn, iris_Xtest_knn, iris_Ytest_knn,knn= IrisTrain_knn()
     # for i in range(len(iris_predict)):
@@ -136,3 +140,5 @@ if __name__ == '__main__':
     #     print("第%s次测试，预测值是：%s，真实值是：%s" % ((i + 1), lables[iris_Ytest[i]], lables[iris_predict[i]]))
     print("rf的准确率是：{:.2%}".format(rf.score(iris_Xtest_rf, iris_Ytest_rf)))
     print("rf的测试准确率是：{:.2%}".format(Iris_score(iris_Ytest_rf, iris_predict_rf)))
+    print(classification_report(iris_Ytest_rf, iris_predict_rf))
+
