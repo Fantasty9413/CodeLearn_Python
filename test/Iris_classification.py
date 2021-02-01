@@ -99,6 +99,7 @@ if __name__ == '__main__':
     #     print("第%s次测试，预测值是：%s，真实值是：%s" % ((i + 1), lables[iris_Ytest_s[i]], lables[iris_predict_s[i]]))
     print("svm的准确率是：{:.2%}".format(s.score(iris_Xtest_s, iris_Ytest_s)))
     print("svm的测试集准确率是：{:.2%}".format(Iris_score(iris_Ytest_s, iris_predict_s)))
+    print(classification_report(iris_Ytest_s, iris_predict_s))
 
     iris_predict_knn, iris_Xtest_knn, iris_Ytest_knn,knn= IrisTrain_knn()
     # for i in range(len(iris_predict)):
